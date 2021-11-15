@@ -4,7 +4,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun containsRange(range1: IntRange, range2: IntRange): Boolean {
-    return range1.contains(range2.first) && range1.contains(range2.last)
+    return range2.first in range1 && range2.last in range1
 }
 
 private class Test {
