@@ -14,9 +14,8 @@ private fun isPalindrome(str: String): Boolean {
 private fun isPermutationPalindrome(str: String): Boolean {
     var rotationIndex = 0
     while (rotationIndex < str.length && !isPalindrome(
-            str.substring(rotationIndex + 1 until str.length) + str.substring(
-                0 until rotationIndex
-            )
+            str.substring(rotationIndex + 1 until str.length) +
+                    str.substring(0 until rotationIndex)
         )
     ) {
         rotationIndex++

@@ -8,7 +8,7 @@ private object Solution1 {
         str.forEachIndexed { index, c ->
             var lastIndex = str.lastIndex - index
 
-            // Because of this, it only works when the error is no the "right" side of the palindrome
+            // Because of this, it only works when the error is not in the second half of the palindrome
             if (characterRemoved) {
                 lastIndex--
             }
@@ -16,6 +16,12 @@ private object Solution1 {
             if (index >= lastIndex) {
                 return true
             }
+
+            /*
+                When a difference is observed, the lastIndex skips a character, but in the case where the added
+                character is in the first half of the word, even if there is only one character to be skipped, the
+                function finds it mistaken
+             */
 
             if (c != str[lastIndex]) {
                 if (characterRemoved) {

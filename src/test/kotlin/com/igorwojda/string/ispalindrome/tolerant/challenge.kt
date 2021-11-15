@@ -55,6 +55,10 @@ private class Test {
         isTolerantPalindrome("1000000001") shouldBeEqualTo true
     }
 
+    /*
+        Test case to illustrate my case from solution.kt, when '1' is found, the solution continues
+        to compare 'l' with 'u', even if the word is a tolerant palindrome
+     */
     @Test
     fun `"Sa1lutulaS" a palindrome`() {
         isTolerantPalindrome("Sa1lutulaS") shouldBeEqualTo true
