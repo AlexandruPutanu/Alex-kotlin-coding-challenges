@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test
 
 private fun reverse(str: String): String {
     var reversed = ""
-    for (i in str.length - 1 downTo 0) {
-        reversed = "$reversed${str[i]}"
-    }
+    str.forEach { reversed = "$it$reversed" }
     return reversed
 }
 

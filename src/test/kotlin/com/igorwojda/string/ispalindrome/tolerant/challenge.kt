@@ -3,20 +3,10 @@ package com.igorwojda.string.ispalindrome.tolerant
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
-private fun isTolerantPalindrome(str: String, characterRemoved: Boolean = false): Boolean {
-    for (i in 0..(str.length) / 2) {
-        val rIndex = str.length - i - 1
-        if (str[i] != str[rIndex]) {
-            if (characterRemoved)
-                return false
-            return isTolerantPalindrome(str.substring(0 until i) + str.substring(i + 1 until str.length), true)
-                    || isTolerantPalindrome(
-                str.substring(0 until rIndex) + str.substring(rIndex + 1 until str.length),
-                true
-            )
-        }
-    }
-    return true
+private fun isTolerantPalindrome(str: String): Boolean {
+    return str.indices.any {str==str.reversed() || (str.take(it) + str.takeLast(str.length-it-1)).run{
+        this.reversed()==this
+    }}
 }
 
 private class Test {
