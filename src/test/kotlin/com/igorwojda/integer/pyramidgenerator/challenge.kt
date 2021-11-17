@@ -4,8 +4,10 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun generatePyramid(n: Int): List<String> {
-    var currentLevel = if (n==2) n / 2 else (n - 1)
-    return List(n){" ".repeat(currentLevel) + "#".repeat(it * 2 + 1) + " ".repeat(currentLevel--)}
+    var currentLevel = if (n == 2) n / 2 else (n - 1)
+    return List(n) {
+        (" ".repeat(currentLevel) + "#".repeat(it * 2 + 1) + " ".repeat(currentLevel--)).also { line -> println(line) }
+    }
 }
 
 private class Test {

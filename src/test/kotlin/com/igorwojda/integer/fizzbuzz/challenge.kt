@@ -5,11 +5,13 @@ import org.junit.jupiter.api.Test
 
 private fun fizzBuzz(n: Int): List<String> {
     return List(n) {
-        when {
-            (it+1) % 3 == 0 && (it+1) % 5 == 0 -> "FizzBuzz"
-            (it+1) % 3 == 0 -> "Fizz"
-            (it+1) % 5 == 0 -> "Buzz"
-            else -> (it+1).toString()
+        with(it + 1) {
+            when {
+                this % 15 == 0 -> "FizzBuzz"
+                this % 3 == 0 -> "Fizz"
+                this % 5 == 0 -> "Buzz"
+                else -> this.toString()
+            }
         }
     }
 }
