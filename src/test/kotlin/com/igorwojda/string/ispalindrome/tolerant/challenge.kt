@@ -3,8 +3,10 @@ package com.igorwojda.string.ispalindrome.tolerant
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
-private fun isTolerantPalindrome(str: String, characterRemoved: Boolean = false): Boolean {
-    TODO("not implemented")
+private fun isTolerantPalindrome(str: String): Boolean {
+    return str.indices.any {str==str.reversed() || (str.take(it) + str.takeLast(str.length-it-1)).run{
+        this.reversed()==this
+    }}
 }
 
 private class Test {
@@ -41,6 +43,15 @@ private class Test {
     @Test
     fun `"1000000001" a palindrome`() {
         isTolerantPalindrome("1000000001") shouldBeEqualTo true
+    }
+
+    /*
+        Test case to illustrate my case from solution.kt, when '1' is found, the solution continues
+        to compare 'l' with 'u', even if the word is a tolerant palindrome
+     */
+    @Test
+    fun `"Sa1lutulaS" a palindrome`() {
+        isTolerantPalindrome("Sa1lutulaS") shouldBeEqualTo true
     }
 
     @Test

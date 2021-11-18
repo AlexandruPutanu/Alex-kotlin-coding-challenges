@@ -4,7 +4,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun vowels(str: String): Int {
-    TODO("not implemented")
+    return str.filter { c: Char -> "aeiouy".contains(c, ignoreCase = true) }.length
 }
 
 private class Test {

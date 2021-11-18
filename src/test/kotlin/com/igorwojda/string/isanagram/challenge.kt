@@ -4,7 +4,8 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun isAnagram(str1: String, str2: String): Boolean {
-    TODO("not implemented")
+    fun String.getLetters() = run { toLowerCase().filter { it.isLetter() } }
+    return str1.getLetters().groupBy { it } == str2.getLetters().groupBy { it }
 }
 
 private class Test {

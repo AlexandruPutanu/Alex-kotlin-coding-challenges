@@ -4,7 +4,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun generateSteps(n: Int): List<String> {
-    TODO("not implemented")
+    return List(n){"#".repeat(it + 1) + " ".repeat(n - it - 1)}
 }
 
 private class Test {

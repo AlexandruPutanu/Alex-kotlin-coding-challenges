@@ -4,7 +4,11 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun isPermutationPalindrome(str: String): Boolean {
-    TODO("not implemented")
+    return str.indices.any {
+        (str.take(it) + str.dropLast(it)).run {
+            this.reversed() == this
+        }
+    }
 }
 
 private class Test {
