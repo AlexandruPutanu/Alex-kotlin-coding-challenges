@@ -4,7 +4,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun countDown(n: Int): List<Int> {
-    TODO("not implemented")
+    return (n downTo 0).toList()
 }
 
 private class Test {

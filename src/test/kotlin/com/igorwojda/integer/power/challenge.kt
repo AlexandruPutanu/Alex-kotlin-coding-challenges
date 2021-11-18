@@ -2,9 +2,31 @@ package com.igorwojda.integer.power
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.exp
+import kotlin.reflect.KFunction
+
+//private fun power(base: Int, exponent: Int): Int {
+//    var result = base
+//    var pow = exponent
+//    if(exponent==0){
+//        return 1
+//    }
+//    while(pow>1){
+//        result*=base
+//        pow--
+//    }
+//    return result
+//}
+
+//Power fun with operator
+//private fun power(base: Int, exponent: Int): Int {
+//    operator fun List<Int>.invoke() = reduce { it, acc -> it * acc }
+//    val reference: KFunction<Int> = List<Int>::invoke
+//    return (reference.call(List(exponent) { base }))
+//}
 
 private fun power(base: Int, exponent: Int): Int {
-    TODO("not implemented")
+    return List(exponent) { base }.reduce(Int::times)
 }
 
 private class Test {

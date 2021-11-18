@@ -4,7 +4,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun longestWord(str: String): String {
-    TODO("not implemented")
+    return str.split("\\W".toRegex()).maxByOrNull { it.length }?:""
 }
 
 private class Test {
