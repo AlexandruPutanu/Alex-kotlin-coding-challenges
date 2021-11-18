@@ -3,8 +3,24 @@ package com.igorwojda.binarytree.validate
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
-private fun isValidSearchBinaryTree(node: Node<Int>): Boolean {
-    TODO("not implemented")
+private fun isValidSearchBinaryTree(node: Node<Int>?, min: Int = Int.MIN_VALUE, max: Int = Int.MAX_VALUE): Boolean {
+    if (node == null) {
+        return true
+    }
+    if (node.data < min || node.data > max) {
+        return false
+    }
+    val left: Boolean = isValidSearchBinaryTree(node.left, min, if (max == Int.MAX_VALUE) node.data else max)
+    val right: Boolean = isValidSearchBinaryTree(node.right, if (min == Int.MIN_VALUE) node.data else min, max)
+    node.right?.let {
+        if (node.data >= it.data || it.data < min || it.data > max)
+            return false
+    }
+    node.left?.let {
+        if (node.data <= it.data || it.data < min || it.data > max)
+            return false
+    }
+    return (left && right)
 }
 
 private class Test {

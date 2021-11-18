@@ -4,7 +4,26 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun equalDigitFrequency(i1: Int, i2: Int): Boolean {
-    TODO("not implemented")
+//    val digitMap = mutableMapOf<Int, Int>()
+//    var i1Digits = i1
+//    var i2Digits = i2
+//    while (i1Digits > 0) {
+//        digitMap[i1Digits % 10] = digitMap.getOrDefault(i1Digits % 10, 0) + 1
+//        i1Digits /= 10
+//    }
+//    while (i2Digits > 0) {
+//        digitMap[i2Digits % 10] = digitMap.getOrDefault(i2Digits % 10, 0) - 1
+//        i2Digits /= 10
+//    }
+//    for (i in digitMap.keys) {
+//        if (digitMap[i] != 0)
+//            return false
+//    }
+//    return true
+    val i1String = i1.toString()
+    val i2String = i2.toString()
+    return (i1String.length == i2String.length) &&
+            i1String.toList().groupBy { it } == i2String.toList().groupBy { it }
 }
 
 private class Test {

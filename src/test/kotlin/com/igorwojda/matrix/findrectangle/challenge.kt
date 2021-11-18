@@ -4,7 +4,28 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun findRectangle(image: List<List<Int>>): List<Int>? {
-    TODO("not implemented")
+    val result = mutableListOf<Int>()
+    var i = 0
+    // Find the top left corner
+    while (i < image.size) {
+        val j = image[i].indexOfFirst { it == 0 }
+        if (j != -1) {
+            result.addAll(listOf(i, j))
+            break
+        }
+        i++
+    }
+    i = image.size - 1
+    // Find the bottom right corner
+    while (i >= 0) {
+        val j = image[i].indexOfLast { it == 0 }
+        if (j != -1) {
+            result.addAll(listOf(i, j))
+            break
+        }
+        i--
+    }
+    return if (result.size == 4) result else null
 }
 
 private class Test {

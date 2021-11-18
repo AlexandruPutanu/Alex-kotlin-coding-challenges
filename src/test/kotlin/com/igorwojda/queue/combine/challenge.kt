@@ -4,7 +4,20 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun combine(q1: Queue<*>, q2: Queue<*>): Queue<*> {
-    TODO("not implemented")
+    val q3 = Queue<Any?>()
+    while (!q1.isEmpty() || !q2.isEmpty()) {
+        if (!q1.isEmpty()) {
+            q1.remove()?.let {
+                q3.add(it)
+            }
+        }
+        if (!q2.isEmpty()) {
+            q2.remove()?.let {
+                q3.add(it)
+            }
+        }
+    }
+    return q3
 }
 
 private class Queue<E> {

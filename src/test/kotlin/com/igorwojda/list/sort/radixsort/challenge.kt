@@ -2,18 +2,31 @@ package com.igorwojda.list.sort.radixsort
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.pow
 
 private fun radixSort(list: List<Int>): List<Number> {
-    TODO("not implemented")
+    var sortedList = list.toMutableList()
+    for (significantDigit in 0 until maxDigits(list)) {
+        val map: Map<Char, MutableList<Int>> =
+            (List(10) { '0' + it }.associateWith { mutableListOf<Int>() }).toMutableMap()
+        mutableMapOf<Char, MutableList<Int>>()
+        for (item in sortedList) {
+            map[item.getDigitAt(significantDigit)]?.apply {
+                add(item)
+            }
+        }
+        sortedList = map.map { it.value }.flatten().toMutableList()
+    }
+    return sortedList
 }
 
 private fun Int.getDigitAt(index: Int): Char {
-    return '0'
+    return '0' + (this % 10.0.pow(index + 1) / 10.0.pow(index)).toInt()
 }
 
-private val Int.digitCount get() = -1
+private val Int.digitCount get() = this.toString().length
 
-private fun maxDigits(list: List<Int>): Int = -1
+private fun maxDigits(list: List<Int>): Int = list.map { it.digitCount }.maxByOrNull { it } ?: 0
 
 private class Test {
     @Test

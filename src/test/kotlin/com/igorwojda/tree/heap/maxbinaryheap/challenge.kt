@@ -7,20 +7,57 @@ private class MaxBinaryHeap<E : Comparable<E>> {
     val items = mutableListOf<E>()
 
     fun add(element: E) {
-        TODO("not implemented")
+        items.add(element)
+        var itemIndex = items.lastIndex
+        // While the tree is not maxBinaryHeap, swap the added node with its parent
+        while (itemIndex > 0 && items[getParentIndex(itemIndex)] < items[itemIndex]) {
+            items.swap(itemIndex, getParentIndex(itemIndex))
+            itemIndex = getParentIndex(itemIndex)
+        }
     }
 
     fun removeMax(): E? {
-        TODO("not implemented")
+        if (items.size <= 1) {
+            val element = items.getOrNull(0)
+            items.clear()
+            return element
+        }
+        // Delete the first element, and put the last node as root
+        val element = items.first()
+        var newIndex = 0
+        items.swap(0, items.lastIndex)
+        items.removeAt(items.lastIndex)
+        var left = items.getOrNull(getLeftChildIndex(newIndex))
+        var right = items.getOrNull(getRightChildIndex(newIndex))
+        // If any of the node's children exist
+        while ((left != null && items[newIndex] < left) || (right != null && items[newIndex] < right)) {
+            /* If the right node exists and it is higher than the left node, swap it with the current element
+             Because the Tree is filled from left to right, we are sure that if the right child exists,
+              then so does the left one
+             */
+            newIndex = if (right != null && right > left!!) {
+                items.swap(getRightChildIndex(newIndex), newIndex)
+                getRightChildIndex(newIndex)
+            }
+            // Else (the left node exists and it is higher than the right node) swap it with the current element
+            else {
+                items.swap(getLeftChildIndex(newIndex), newIndex)
+                getLeftChildIndex(newIndex)
+            }
+            // Process the new left and right children
+            left = items.getOrNull(getLeftChildIndex(newIndex))
+            right = items.getOrNull(getRightChildIndex(newIndex))
+        }
+        return element
     }
 
-    private fun getParentIndex(index: Int): Int = TODO("not implemented")
+    private fun getParentIndex(index: Int): Int = (index - 1) / 2
 
-    private fun getLeftChildIndex(index: Int): Int = TODO("not implemented")
+    private fun getLeftChildIndex(index: Int): Int = index * 2 + 1
 
-    private fun getRightChildIndex(index: Int): Int = TODO("not implemented")
+    private fun getRightChildIndex(index: Int): Int = index * 2 + 2
 
-    fun isEmpty(): Boolean = TODO("not implemented")
+    fun isEmpty(): Boolean = items.isEmpty()
 
     private fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
         val tmp = this[index1]

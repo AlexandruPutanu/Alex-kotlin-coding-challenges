@@ -4,7 +4,51 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun generateSpiralMatrix(n: Int): List<MutableList<Int?>> {
-    TODO("not implemented")
+    // Initialize the spiraling number, the matrix, the current depth of the spiral
+    var currentNumber = 1
+    val matrix = List(n) { MutableList<Int?>(n) { null } }
+    var circle = 0
+    var rowIndex = 0
+    var columnIndex = -1
+    do {
+        columnIndex++
+        // Move along the top horizontal line
+        while (columnIndex < n - circle) {
+            matrix[rowIndex][columnIndex] = currentNumber
+            currentNumber++
+            columnIndex++
+        }
+        // If you reached the center of the spiral, then exit
+        if (currentNumber > n * n)
+            break
+        columnIndex--
+        rowIndex++
+        // Move along the right vertical line downwards
+        while (rowIndex < n - circle) {
+            matrix[rowIndex][columnIndex] = currentNumber
+            currentNumber++
+            rowIndex++
+        }
+        columnIndex--
+        rowIndex--
+        // Put the numbers on the bottom line, from right to left
+        while (columnIndex >= circle) {
+            matrix[rowIndex][columnIndex] = currentNumber
+            currentNumber++
+            columnIndex--
+        }
+        rowIndex--
+        columnIndex++
+        // Put the numbers on the left column, from bottom to top
+        while (rowIndex > circle) {
+            matrix[rowIndex][columnIndex] = currentNumber
+            currentNumber++
+            rowIndex--
+        }
+        circle++
+        rowIndex++
+    } while (currentNumber <= n * n)
+    return matrix
 }
 
 private class Test {

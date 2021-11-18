@@ -4,7 +4,9 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun surroundedLetter(str: String): Boolean {
-    TODO("not implemented")
+    // Because the string contains only letters and '+', we can assume that by splitting the string by letters, we
+    // must obtain only the '+' if the string is surroundedLetter.
+    return !str.split("\\w".toRegex()).contains("")
 }
 
 private class Test {

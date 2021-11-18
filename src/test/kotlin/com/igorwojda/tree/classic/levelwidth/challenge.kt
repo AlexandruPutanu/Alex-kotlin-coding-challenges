@@ -4,7 +4,21 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun levelWidth(tree: Node): List<Int> {
-    TODO("not implemented")
+    val levelWidths = mutableListOf<Int>()
+    val currentLevel = mutableListOf(tree)
+    val nextLevel = mutableListOf<Node>()
+    nextLevel.addAll(tree.children)
+    levelWidths.add(1)
+    while (nextLevel.isNotEmpty()) {
+        currentLevel.clear()
+        currentLevel.addAll(nextLevel)
+        levelWidths.add(nextLevel.size)
+        nextLevel.clear()
+        for (node in currentLevel) {
+            nextLevel.addAll(node.children)
+        }
+    }
+    return levelWidths
 }
 
 private class Test {

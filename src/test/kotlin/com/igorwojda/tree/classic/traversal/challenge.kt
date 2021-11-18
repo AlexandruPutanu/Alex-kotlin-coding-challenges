@@ -62,32 +62,264 @@ private class BinarySearchTree<E : Comparable<E>> {
 
     fun isEmpty() = root == null
 
-    fun traverseBreathFirst(): List<E> {
-        TODO("not implemented")
+
+    // Using queue, as intended by the creator
+    fun traverseBreadthFirst(): List<E> {
+        if (root == null) {
+            return listOf()
+        } else {
+            val queue = Queue<BinaryNode<E>>()
+            val visited = mutableListOf<E>()
+            root?.data?.let {
+                visited.add(it)
+            }
+            root?.left?.let {
+                queue.add(it)
+                visited.add(it.data)
+            }
+            root?.right?.let {
+                queue.add(it)
+                visited.add(it.data)
+            }
+            while (queue.isNotEmpty()) {
+                val node = queue.remove()
+                node?.left?.let {
+                    queue.add(it)
+                    visited.add(it.data)
+                }
+                node?.right?.let {
+                    queue.add(it)
+                    visited.add(it.data)
+                }
+            }
+            return visited
+        }
+    }
+    // First, recursive (over levels) version
+//    fun traverseBreadthFirst(currentList: List<BinaryNode<E>>? = null): List<E> {
+//        if (currentList == null) {
+//            if (root == null) {
+//                return listOf()
+//            }
+//            root?.let {
+//                return mutableListOf(it.data).apply {
+//                    val nextLevel = listOfNotNull(root?.left, root?.right)
+//                    this.addAll(traverseBreathFirst(nextLevel))
+//                }
+//            }
+//        }
+//        if (currentList.isNullOrEmpty()) {
+//            return listOf()
+//        }
+//        val nextLevelList = mutableListOf<BinaryNode<E>?>()
+//        val resultList = mutableListOf<E>()
+//        currentList.forEach {
+//            resultList.add(it.data)
+//            nextLevelList.add(it.left)
+//            nextLevelList.add(it.right)
+//        }
+//        return resultList.apply {
+//            this.addAll(traverseBreathFirst(nextLevelList.filterNotNull()))
+//        }
+//
+//    }
+
+    fun traverseDepthFirstPreOrder(node: BinaryNode<E>? = null): List<E> {
+        if (node == null) {
+            if (root == null) {
+                return listOf()
+            } else {
+                return run {
+                    val list = mutableListOf<E>()
+                    root?.data?.let {
+                        list.add(it)
+                    }
+                    root?.left?.let {
+                        list.addAll(traverseDepthFirstPreOrder(it))
+                    }
+                    root?.right?.let {
+                        list.addAll(traverseDepthFirstPreOrder(it))
+                    }
+                    list
+                }
+            }
+        }
+        return run {
+            val list = mutableListOf<E>()
+            list.add(node.data)
+            node.left?.let {
+                list.addAll(traverseDepthFirstPreOrder(it))
+            }
+            node.right?.let {
+                list.addAll(traverseDepthFirstPreOrder(it))
+            }
+            list
+        }
     }
 
-    fun traverseDepthFirstPreOrder(): List<E> {
-        TODO("not implemented")
+    fun traverseDepthFirstInOrder(node: BinaryNode<E>? = null): List<E> {
+        if (node == null) {
+            if (root == null) {
+                return listOf()
+            } else {
+                return run {
+                    val list = mutableListOf<E>()
+                    root?.left?.let {
+                        list.addAll(traverseDepthFirstInOrder(it))
+                    }
+                    root?.data?.let {
+                        list.add(it)
+                    }
+                    root?.right?.let {
+                        list.addAll(traverseDepthFirstInOrder(it))
+                    }
+                    list
+                }
+            }
+        }
+        return run {
+            val list = mutableListOf<E>()
+            node.left?.let {
+                list.addAll(traverseDepthFirstInOrder(it))
+            }
+            list.add(node.data)
+            node.right?.let {
+                list.addAll(traverseDepthFirstInOrder(it))
+            }
+            list
+        }
     }
 
-    fun traverseDepthFirstInOrder(): List<E> {
-        TODO("not implemented")
+    fun traverseDepthFirstPostOrder(node: BinaryNode<E>? = null): List<E> {
+        if (node == null) {
+            if (root == null) {
+                return listOf()
+            } else {
+                return run {
+                    val list = mutableListOf<E>()
+                    root?.left?.let {
+                        list.addAll(traverseDepthFirstPostOrder(it))
+                    }
+                    root?.right?.let {
+                        list.addAll(traverseDepthFirstPostOrder(it))
+                    }
+                    root?.data?.let {
+                        list.add(it)
+                    }
+                    list
+                }
+            }
+        }
+        return run {
+            val list = mutableListOf<E>()
+            node.left?.let {
+                list.addAll(traverseDepthFirstPostOrder(it))
+            }
+            node.right?.let {
+                list.addAll(traverseDepthFirstPostOrder(it))
+            }
+            list.add(node.data)
+            list
+        }
     }
 
-    fun traverseDepthFirstPostOrder(): List<E> {
-        TODO("not implemented")
+    fun traverseDepthFirstPreOrderReversed(node: BinaryNode<E>? = null): List<E> {
+        if (node == null) {
+            if (root == null) {
+                return listOf()
+            } else {
+                return run {
+                    val list = mutableListOf<E>()
+                    root?.data?.let {
+                        list.add(it)
+                    }
+                    root?.right?.let {
+                        list.addAll(traverseDepthFirstPreOrderReversed(it))
+                    }
+                    root?.left?.let {
+                        list.addAll(traverseDepthFirstPreOrderReversed(it))
+                    }
+                    list
+                }
+            }
+        }
+        return run {
+            val list = mutableListOf<E>()
+            list.add(node.data)
+            node.right?.let {
+                list.addAll(traverseDepthFirstPreOrderReversed(it))
+            }
+            node.left?.let {
+                list.addAll(traverseDepthFirstPreOrderReversed(it))
+            }
+            list
+        }
     }
 
-    fun traverseDepthFirstPreOrderReversed(): List<E> {
-        TODO("not implemented")
+    fun traverseDepthFirstInOrderReversed(node: BinaryNode<E>? = null): List<E> {
+        if (node == null) {
+            if (root == null) {
+                return listOf()
+            } else {
+                return run {
+                    val list = mutableListOf<E>()
+                    root?.right?.let {
+                        list.addAll(traverseDepthFirstInOrderReversed(it))
+                    }
+                    root?.data?.let {
+                        list.add(it)
+                    }
+                    root?.left?.let {
+                        list.addAll(traverseDepthFirstInOrderReversed(it))
+                    }
+                    list
+                }
+            }
+        }
+        return run {
+            val list = mutableListOf<E>()
+            node.right?.let {
+                list.addAll(traverseDepthFirstInOrderReversed(it))
+            }
+            list.add(node.data)
+            node.left?.let {
+                list.addAll(traverseDepthFirstInOrderReversed(it))
+            }
+            list
+        }
     }
 
-    fun traverseDepthFirstInOrderReversed(): List<E> {
-        TODO("not implemented")
-    }
-
-    fun traverseDepthFirstPostOrderReverse(): List<E> {
-        TODO("not implemented")
+    fun traverseDepthFirstPostOrderReverse(node: BinaryNode<E>? = null): List<E> {
+        if (node == null) {
+            if (root == null) {
+                return listOf()
+            } else {
+                return run {
+                    val list = mutableListOf<E>()
+                    root?.right?.let {
+                        list.addAll(traverseDepthFirstPostOrderReverse(it))
+                    }
+                    root?.left?.let {
+                        list.addAll(traverseDepthFirstPostOrderReverse(it))
+                    }
+                    root?.data?.let {
+                        list.add(it)
+                    }
+                    list
+                }
+            }
+        }
+        return run {
+            val list = mutableListOf<E>()
+            node.right?.let {
+                list.addAll(traverseDepthFirstPostOrderReverse(it))
+            }
+            node.left?.let {
+                list.addAll(traverseDepthFirstPostOrderReverse(it))
+            }
+            list.add(node.data)
+            list
+        }
     }
 }
 
@@ -98,7 +330,7 @@ private data class BinaryNode<E : Comparable<E>>(
 )
 
 /*
-We can use queue as helper class to implement breath first traversal. This is not most optimal queue implementation,
+We can use queue as helper class to implement breadth first traversal. This is not most optimal queue implementation,
 however it's enough for this task. Check "Queue puzzle" solution for more details and more efficient queue
 implementation.
 */
@@ -122,8 +354,8 @@ private class Queue<E> {
 
 private class Test {
     @Test
-    fun `traverse breath first`() {
-        getTree().traverseBreathFirst() shouldBeEqualTo listOf(
+    fun `traverse breadth first`() {
+        getTree().traverseBreadthFirst() shouldBeEqualTo listOf(
             'F',
             'B',
             'G',
