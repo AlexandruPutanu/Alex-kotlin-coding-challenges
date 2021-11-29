@@ -4,7 +4,20 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun bubbleSort(list: List<Int>): List<Number> {
-    TODO("not implemented")
+    val mutableList = list.toMutableList()
+    var sorted = false
+    while (!sorted) {
+        sorted = true
+        for (i in 0..mutableList.size - 2) {
+            if (mutableList[i] > mutableList[i + 1]) {
+                sorted = false
+                val temp = mutableList[i]
+                mutableList[i] = mutableList[i + 1]
+                mutableList[i + 1] = temp
+            }
+        }
+    }
+    return mutableList
 }
 
 private class Test {

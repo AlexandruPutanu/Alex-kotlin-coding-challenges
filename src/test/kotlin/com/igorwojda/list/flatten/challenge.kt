@@ -4,7 +4,14 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun flatten(list: List<*>): List<*> {
-    TODO("not implemented")
+    if (list.isEmpty()) {
+        return list
+    }
+    return if (list.first() is List<*>) {
+        flatten(list.first() as List<*>) + flatten(list.subList(1, list.size))
+    } else {
+        listOf(list.first()) + flatten(list.subList(1, list.size))
+    }
 }
 
 private class Test {

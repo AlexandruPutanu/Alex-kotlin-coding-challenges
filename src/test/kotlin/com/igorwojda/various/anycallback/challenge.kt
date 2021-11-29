@@ -4,7 +4,12 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun anyCallback(list: List<Int>, callback: (Int) -> Boolean): Boolean {
-    TODO("not implemented")
+    if (list.isEmpty())
+        return false
+    if (callback(list.first())) {
+        return true
+    }
+    return anyCallback(list.subList(1, list.size), callback)
 }
 
 private class Test {

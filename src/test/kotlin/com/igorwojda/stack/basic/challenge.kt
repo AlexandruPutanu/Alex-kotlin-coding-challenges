@@ -6,22 +6,30 @@ import org.junit.jupiter.api.Test
 private class Stack<E> {
     var size = 0
 
+    var list: Node<E>? = null
+
     fun add(element: E) {
-        TODO("not implemented")
+        list = Node<E>(element, list)
+        size++
     }
 
     fun remove(): E? {
-        TODO("not implemented")
+        return list?.let {
+            val currentVal = it.value
+            list = it.nextNode
+            size--
+            return currentVal
+        }
     }
 
     fun peek(): E? {
-        TODO("not implemented")
+        return list?.value
     }
 
-    fun isEmpty(): Boolean {
-        TODO("not implemented")
-    }
+    fun isEmpty(): Boolean = size == 0
 }
+
+private class Node<E>(val value: E, var nextNode: Node<E>?)
 
 private class Test {
     @Test

@@ -7,20 +7,65 @@ private class BinarySearchTree<E : Comparable<E>> {
     var root: BinaryNode<E>? = null
         private set
 
+    private fun getCorrespondingNode(currentNode: BinaryNode<E>?, element: E): BinaryNode<E>? {
+        return currentNode?.let {
+            return when {
+                element == it.data -> currentNode
+                element < it.data -> it.left
+                else -> it.right
+            }
+        }
+    }
+
     fun add(element: E) {
-        TODO("not implemented")
+        if (root == null) {
+            root = BinaryNode(data = element)
+        } else {
+            var currentNode = root
+            var nextNode: BinaryNode<E>? = currentNode
+            do {
+                currentNode = nextNode
+                nextNode = getCorrespondingNode(currentNode, element)
+            } while (nextNode != null && currentNode != nextNode)
+            if (currentNode == nextNode) {
+                return
+            }
+            currentNode?.let {
+                if (element < currentNode.data) {
+                    currentNode.left = BinaryNode(data = element)
+                } else {
+                    currentNode.right = BinaryNode(data = element)
+                }
+            }
+        }
     }
 
     fun contains(element: E): Boolean {
-        TODO("not implemented")
+        if (root == null) {
+            return false
+        } else {
+            var currentNode = root
+            var nextNode: BinaryNode<E>? = currentNode
+            do {
+                currentNode = nextNode
+                nextNode = getCorrespondingNode(currentNode, element)
+            } while (nextNode != null && currentNode != nextNode)
+            if (currentNode == nextNode) {
+                return true
+            }
+        }
+        return false
     }
 
     fun isEmpty(): Boolean {
-        TODO("not implemented")
+        if (root == null) {
+            return false
+        }
+        return true
     }
 }
 
-private data class BinaryNode<E : Comparable<E>>(
+data class BinaryNode<E : Comparable<E>>(
     val data: E,
     var left: BinaryNode<E>? = null,
     var right: BinaryNode<E>? = null

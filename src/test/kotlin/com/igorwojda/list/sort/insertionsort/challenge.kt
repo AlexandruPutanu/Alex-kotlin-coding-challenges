@@ -4,8 +4,18 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun insertionSort(list: MutableList<Int>): List<Int> {
-    TODO("not implemented")
+    if (list.size == 0 || list.size == 1)
+        return list
+    for (i in 1 until list.size) {
+        var position = i
+        while (position > 0 && list[position - 1] > list[i]) {
+            position--
+        }
+        list.add(position, list.removeAt(i))
+    }
+    return list
 }
+
 
 private class Test {
     @Test

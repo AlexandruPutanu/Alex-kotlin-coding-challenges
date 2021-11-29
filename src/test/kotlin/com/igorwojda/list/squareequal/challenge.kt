@@ -4,7 +4,18 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun squareEquals(list: List<Int>, squared: List<Int>): Boolean {
-    TODO("not implemented")
+    val mutableSquared = squared.toMutableList()
+    for (i in list.indices) {
+        if (mutableSquared.isEmpty())
+            return false
+        val square = list[i] * list[i]
+        if (mutableSquared.contains(square)) {
+            mutableSquared.remove(square)
+        } else {
+            return false
+        }
+    }
+    return true
 }
 
 private class Test {

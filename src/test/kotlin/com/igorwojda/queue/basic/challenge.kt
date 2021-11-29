@@ -7,18 +7,64 @@ private class Queue<E> {
     var size = 0
         private set
 
+    private val list = mutableListOf<E>()
+
     fun add(element: E) {
-        TODO("not implemented")
+        list.add(element)
+        size = list.size
     }
 
-    fun remove(): E = TODO("not implemented")
+    fun remove(): E? = if (list.isEmpty()) null else {
+        size--
+        list.removeAt(0)
+    }
 
-    fun peek(): E = TODO("not implemented")
+
+    fun peek(): E? = if (list.isEmpty()) null else list[0]
 
     fun isEmpty(): Boolean {
-        TODO("not implemented")
+        return list.isEmpty()
     }
 }
+
+// Linked list impl
+//private class Node<E>(val value: E, var nextNode: Node<E>? = null)
+//
+//private class Queue<E> {
+//    var size = 0
+//        private set
+//
+//    var list: Node<E>? = null
+//    fun add(element: E) {
+//        val newElement = Node(element, null)
+//        if(list==null){
+//            list = Node(element,null)
+//            size++
+//            return
+//        }
+//        var currentNode = list
+//        while (currentNode?.nextNode !== null) {
+//            currentNode = currentNode.nextNode
+//        }
+//        size++
+//        currentNode?.nextNode = newElement
+//    }
+//
+//    fun remove(): E? {
+//        if (list == null)
+//            return null
+//        size--
+//        val currentNode = list!!
+//        list = currentNode.nextNode
+//        return currentNode.value
+//    }
+//
+//    fun peek(): E? = list?.value
+//
+//    fun isEmpty(): Boolean {
+//        return list == null
+//    }
+//}
 
 private class Test {
     @Test

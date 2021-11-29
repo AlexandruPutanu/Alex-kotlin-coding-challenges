@@ -2,9 +2,20 @@ package com.igorwojda.list.sumzero
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.abs
 
 private fun sumZero(list: List<Int>): Pair<Int, Int>? {
-    TODO("not implemented")
+    var leftIndex = 0
+    var rightIndex = list.size - 1
+    while (leftIndex < rightIndex) {
+        if (list[leftIndex] == -list[rightIndex])
+            return list[leftIndex] to list[rightIndex]
+        if (abs(list[leftIndex]) > abs(list[rightIndex]))
+            leftIndex++
+        else
+            rightIndex--
+    }
+    return null
 }
 
 private class Test {
